@@ -1,0 +1,25 @@
+@model shopapp.webui.ViewModels.ProductListViewModel
+@{
+    var popularClass = Model.Products.Count > 2 ? "popular" : "";
+    var products = Model.Products;
+}
+@section Categories{
+@await Component.InvokeAsync("Categories")
+}
+@if (products.Count == 0)
+{
+    @await Html.PartialAsync("_NoProduct")
+}
+else
+{
+    <div class="row">
+        @foreach (var p in products)
+        {
+            <div class="col">
+                @await Html.PartialAsync("_Products",p)
+            </div>
+
+        }
+    </div>
+
+}

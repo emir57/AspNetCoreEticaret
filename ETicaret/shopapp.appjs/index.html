@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="products"></div>
+
+    <script>
+        const getProducts = async () =>{
+            const response = await fetch("https://localhost:4200/api/product");
+            const products = await response.json();
+
+            setProducts(products); // [{"productId":"1","name":"samsung s20"}]
+        }
+        const setProducts = (products) =>{
+            const productDiv = document.getElementById("products");
+
+            products.forEach(product => {
+                productDiv.innerHTML += `
+                    <div>
+                        <p>${product.name}</p>
+                        <p>${product.price}</p>
+                    </div>
+                ` 
+            });
+        }
+        getProducts();
+    </script>
+</body>
+</html>

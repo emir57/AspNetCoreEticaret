@@ -1,0 +1,38 @@
+@model ProductDetailModel
+
+<div class="row">
+    <div class="col-md-3">
+        <img src="~/images/@Model.Product.ImageUrl" class="img-fluid">
+    </div>
+    <div class="col-md-9">
+        <h1 class="card-title mb-3">@Model.Product.Name</h1>
+        <hr>
+        @foreach (var c in Model.Categories)
+        {
+            <a asp-controller="shop" asp-action="list" asp-route-category="@c.Url" class="btn btn-link p-0 mb-3">@c.Name</a>
+        }
+
+        <div class="mb-3">
+            <h4 class="text-primary"><i class="fas fa-lira-sign"></i> @Model.Product.Price</h4>
+
+            <form asp-controller="Cart" asp-action="AddToCart" method="POST" class="form-inline">
+                <input type="hidden" name="productId" value="@Model.Product.ProductId">
+                <div class="input-group mb-3">
+                    <input type="number" name="quantity" class="form-control" min="1" style="width:100px" step="1" value="1">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-cart-plus"></i> Add To Cart
+                            </button>
+                        
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 p-5">
+        <p class="p-3">@Html.Raw(Model.Product.Description)</p>
+    </div>
+</div>
